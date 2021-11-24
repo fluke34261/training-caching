@@ -8,13 +8,13 @@ app = Flask(__name__)
 CORS(app)
 
 mydb = mysql.connector.connect(
-  host="3.1.221.178",
-  user="root",
-  password="4321",
-  database="training"
+  host="insert_db_host",
+  user="insert_db_user",
+  password="insert_db_password",
+  database="insert_db_name"
 )
 
-redisObject = redis.Redis(host='3.1.221.178', port=6379, db=0)
+redisObject = redis.Redis(host='insert_caching_host', port=6379, db=0)
 
 cursor = mydb.cursor()
 
