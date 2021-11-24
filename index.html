@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+</head>
+<body>
+    <h1>Search Engine</h1>
+    <form action="#">
+        <input type="text" name="q" id="q" placeholder="type here....">
+        <button type="button" onclick="getSearch()">Search...</button>
+    </form>
+
+    <ul id="result">
+    </ul>
+
+    <script>
+        function getSearch() {
+            let input = document.querySelector("#q").value
+            let encoded_input = encodeURIComponent(input)
+    
+            fetch(`http://192.168.1.221:5001/search?q=${encoded_input}`, {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Success:', data);
+                data.result.forEach(function(each_record) {
+                    console.log();
+                    // https://www.w3schools.com/jsref/met_node_appendchild.asp
+                    var node = document.createElement("LI");                 // Create a <li> node
+                    var textnode = document.createTextNode(`${each_record[0]} => ${each_record[2]}`);         // Create a text node
+                    node.appendChild(textnode);                              // Append the text to <li>
+                    document.getElementById("result").appendChild(node);     // Append <li> to <ul> with id="myList"
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
